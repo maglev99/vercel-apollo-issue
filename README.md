@@ -11,3 +11,5 @@ Instructions:
 - To view working version locally build and start project or 'npm run dev' and visit localhost:3000/api/fetch-test
 
 - To reproduce issue deploy to vercel and visit DEPLOYED_URL/api/fetch-test
+
+- Remember to add the Environment Variable DATABASE_URL with a Postgres Connection URL (ie. empty Postgres DB). It is not used to reproduce issue but needed to pass build and deploy.
