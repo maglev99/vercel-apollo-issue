@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Token {
+    id        String   @id @default(uuid())
+    pk        BigInt
+    timestamp DateTime
+    tags      String[]
+
+    @@index(pk)
+}
+
+model TagRank {
+    id            String       @id @default(uuid())
+    name          String
+    count         Int
+    TagRankList   TagRankList @relation(fields: [tagRankListId], references: [id])
+    tagRankListId String
+
+    @@index(tagRankListId)
+}
+
+model TagRankList {
+    id    String           @id @default(uuid())
+    type  Type_TagRankList
+    start DateTime
+    end   DateTime
+    list  TagRank[]
+
+    @@unique([start, end])
+    @@index([start, end])
+}
+
+enum Type_TagRankList {
+    HOUR
+    DAY
+    WEEK
+    YEAR
+}
